@@ -48,6 +48,14 @@ const setup = () => {
 	walls.push(new Boundary(-sceneW + 300, -sceneH + 100, -sceneW + 400, -sceneH + 100));
 
 
+	// create hexagon by walls
+	walls.push(new Boundary(-sceneW + 150, -sceneH + 250, -sceneW + 150, -sceneH + 350));
+	walls.push(new Boundary(-sceneW + 250, -sceneH + 250, -sceneW + 250, -sceneH + 350));
+	walls.push(new Boundary(-sceneW + 150, -sceneH + 350, -sceneW + 250, -sceneH + 350));
+	walls.push(new Boundary(-sceneW + 150, -sceneH + 250, -sceneW + 250, -sceneH + 250));
+
+
+
 
 
 };
