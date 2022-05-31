@@ -6,7 +6,7 @@ export function Particle(x, y) {
 	this.rays = [];
 	this.fov = 60;
 	this.heading = 0; //angle
-	for (let i = -this.fov / 2; i < this.fov / 2; i += .5) {
+	for (let i = -this.fov / 2; i < this.fov / 2; i += .2) {
 		this.rays.push(new Ray(this.pos, radians(i)));
 	}	
 }
@@ -14,7 +14,7 @@ export function Particle(x, y) {
 Particle.prototype.rotate = function(angle) {
 	this.heading += angle;
 	let index = 0;
-	for (let i = -this.fov / 2; i < this.fov / 2; i += .5) {
+	for (let i = -this.fov / 2; i < this.fov / 2; i += .2) {
 		this.rays[index].setAngle(radians(i + this.heading));
 		index++;
 	}

@@ -22,7 +22,8 @@ Canvas.prototype.init = function () {
 
 Canvas.prototype.clear = function () {
 	this.context.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
-	this.context.fillStyle = '#000';
+	// fill the background with sky blue
+	this.context.fillStyle = '#87CEFA';
 	this.context.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
 }
 

@@ -14,25 +14,51 @@ const sceneW = width / 2;
 const sceneH = height / 2;
 
 const walls = [];
-const particle = new Particle(0, 0);
+const particle = new Particle(0, -sceneH / 2);
 //const particle = new Particle(0, sceneH / 2);
 
 const setup = () => {
 	for (let i = 0; i < 5; i++) {
 		let x1 = random(-sceneW, sceneW);
 		let x2 = random(-sceneW, sceneW);
-		let y1 = random(-sceneH, sceneH);
-		let y2 = random(-sceneH, sceneH);
-		walls[i] = new Boundary(x1, y1, x2, y2);
+		let y1 = random(-sceneH, 0);
+		let y2 = random(-sceneH, 0);
+		//walls[i] = new Boundary(x1, y1, x2, y2);
 	}
-	walls.push(new Boundary(-sceneW, -sceneH, sceneW, -sceneH));
-	walls.push(new Boundary(-sceneW, sceneH, sceneW, sceneH));
-	walls.push(new Boundary(-sceneW, -sceneH, -sceneW, sceneH));
-	walls.push(new Boundary(sceneW, -sceneH, sceneW, sceneH));
+	// top wall
+	walls.push(new Boundary(-sceneW, -sceneH + 2, sceneW, -sceneH));
+	// bottom wall
+	walls.push(new Boundary(-sceneW, 0, sceneW, 0));
+	// right wall
+	walls.push(new Boundary(-sceneW, -sceneH, -sceneW, 0));
+	// left wall
+	walls.push(new Boundary(sceneW - 2, -sceneH, sceneW, 0));
+
+	walls.push(new Boundary(-sceneW + 100, -sceneH + 100, -sceneW + 100,	-sceneH + 200));
+	walls.push(new Boundary(-sceneW + 200, -sceneH + 100, -sceneW + 200, -sceneH + 200));
+	walls.push(new Boundary(-sceneW + 100, -sceneH + 200, -sceneW + 200, -sceneH + 200));
+	walls.push(new Boundary(-sceneW + 100, -sceneH + 100, -sceneW + 200, -sceneH + 100));
+
+
+
+
+	walls.push(new Boundary(-sceneW + 300, -sceneH + 100, -sceneW + 300, -sceneH + 200));
+	walls.push(new Boundary(-sceneW + 400, -sceneH + 100, -sceneW + 400, -sceneH + 200));
+	walls.push(new Boundary(-sceneW + 300, -sceneH + 200, -sceneW + 400, -sceneH + 200));
+	walls.push(new Boundary(-sceneW + 300, -sceneH + 100, -sceneW + 400, -sceneH + 100));
+
+
+
+
 };
 
 const loop = () => {
 	canvas.clear();
+	// fill style with dart green
+	ctx.fillStyle = "#006400";
+	ctx.fillRect(-sceneW, sceneH / 2, sceneW * 2, sceneH * 2);
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(-sceneW, -sceneH, sceneW * 2, sceneH);
 	for (let i = 0; i < walls.length; i++) {
 		walls[i].show(ctx);
 	}
@@ -43,13 +69,18 @@ const loop = () => {
 	for (let i = 0; i < scene.length; i++) {
 		const sq = scene[i] * scene[i];	
 		const wSq = sceneW * sceneW;
-    const b = map(sq, 0, wSq, 255, 0);
+    const r = map(sq, 0, wSq, 139, 119);
+		const g = map(sq, 0, wSq, 69, 49);
+		const b = map(sq, 0, wSq, 19, 9);
 		//const h = map(scene[i], 0, sceneW, sceneH, 0);
-    const h = ((sceneW / scene[i]) * distProjPlane) / 4;
+    let h = (((sceneW / scene[i]) * distProjPlane) / 4) / 2;
+    if (h > sceneH) {
+			h = sceneH;
+		}
 		// rect mode = center
-		ctx.fillStyle = `rgba(${b}, ${b}, ${b}, 0.5)`;
-		ctx.fillRect(-sceneW + i * w, 0, w+1, -h);
-		ctx.fillRect(-sceneW + i * w, 0, w+1, h);
+		ctx.fillStyle = 'rgba(' + r + ', ' + g + ', ' + b + ', 1)';
+		ctx.fillRect(-sceneW + i * w, sceneH / 2, w+1, -h/2);
+		ctx.fillRect(-sceneW + i * w, sceneH / 2 - 1, w+1, h/2);
 	  //ctx.fillRect(-sceneW + i * w, sceneH, w + 1, -h);
 	}
 	

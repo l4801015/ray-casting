@@ -6,7 +6,7 @@ export function Boundary(x1, y1, x2, y2) {
 }
 
 Boundary.prototype.show = function(ctx) {
-		ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+		ctx.strokeStyle = 'rgba(255, 255, 255, .8	)';
 	  ctx.lineWidth = 1;
 		ctx.beginPath();
 		ctx.moveTo(this.p1.x, this.p1.y);
