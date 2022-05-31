@@ -26,6 +26,12 @@ Particle.prototype.goForward = function(speed) {
 	this.pos.y += Math.sin(angle) * speed;
 }
 
+Particle.prototype.goBackward = function(speed) {
+	let angle = radians(this.heading);
+	this.pos.x -= Math.cos(angle) * speed;
+	this.pos.y -= Math.sin(angle) * speed;
+}
+
 Particle.prototype.look = function(ctx, walls) {
 	const scene = [];
 	for (let i = 0; i < this.rays.length; i++) {

@@ -23,7 +23,7 @@ const setup = () => {
 		let x2 = random(-sceneW, sceneW);
 		let y1 = random(-sceneH, 0);
 		let y2 = random(-sceneH, 0);
-		//walls[i] = new Boundary(x1, y1, x2, y2);
+		walls[i] = new Boundary(x1, y1, x2, y2);
 	}
 	// top wall
 	walls.push(new Boundary(-sceneW, -sceneH + 2, sceneW, -sceneH));
@@ -34,30 +34,45 @@ const setup = () => {
 	// left wall
 	walls.push(new Boundary(sceneW - 2, -sceneH, sceneW, 0));
 
-	walls.push(new Boundary(-sceneW + 100, -sceneH + 100, -sceneW + 100,	-sceneH + 200));
-	walls.push(new Boundary(-sceneW + 200, -sceneH + 100, -sceneW + 200, -sceneH + 200));
-	walls.push(new Boundary(-sceneW + 100, -sceneH + 200, -sceneW + 200, -sceneH + 200));
-	walls.push(new Boundary(-sceneW + 100, -sceneH + 100, -sceneW + 200, -sceneH + 100));
+	walls.push(
+		new Boundary(-sceneW + 100, -sceneH + 100, -sceneW + 100, -sceneH + 200)
+	);
+	walls.push(
+		new Boundary(-sceneW + 200, -sceneH + 100, -sceneW + 200, -sceneH + 200)
+	);
+	walls.push(
+		new Boundary(-sceneW + 100, -sceneH + 200, -sceneW + 200, -sceneH + 200)
+	);
+	walls.push(
+		new Boundary(-sceneW + 100, -sceneH + 100, -sceneW + 200, -sceneH + 100)
+	);
 
-
-
-
-	walls.push(new Boundary(-sceneW + 300, -sceneH + 100, -sceneW + 300, -sceneH + 200));
-	walls.push(new Boundary(-sceneW + 400, -sceneH + 100, -sceneW + 400, -sceneH + 200));
-	walls.push(new Boundary(-sceneW + 300, -sceneH + 200, -sceneW + 400, -sceneH + 200));
-	walls.push(new Boundary(-sceneW + 300, -sceneH + 100, -sceneW + 400, -sceneH + 100));
-
+	walls.push(
+		new Boundary(-sceneW + 300, -sceneH + 100, -sceneW + 300, -sceneH + 200)
+	);
+	walls.push(
+		new Boundary(-sceneW + 400, -sceneH + 100, -sceneW + 400, -sceneH + 200)
+	);
+	walls.push(
+		new Boundary(-sceneW + 300, -sceneH + 200, -sceneW + 400, -sceneH + 200)
+	);
+	walls.push(
+		new Boundary(-sceneW + 300, -sceneH + 100, -sceneW + 400, -sceneH + 100)
+	);
 
 	// create hexagon by walls
-	walls.push(new Boundary(-sceneW + 150, -sceneH + 250, -sceneW + 150, -sceneH + 350));
-	walls.push(new Boundary(-sceneW + 250, -sceneH + 250, -sceneW + 250, -sceneH + 350));
-	walls.push(new Boundary(-sceneW + 150, -sceneH + 350, -sceneW + 250, -sceneH + 350));
-	walls.push(new Boundary(-sceneW + 150, -sceneH + 250, -sceneW + 250, -sceneH + 250));
-
-
-
-
-
+	walls.push(
+		new Boundary(-sceneW + 150, -sceneH + 250, -sceneW + 150, -sceneH + 350)
+	);
+	walls.push(
+		new Boundary(-sceneW + 250, -sceneH + 250, -sceneW + 250, -sceneH + 350)
+	);
+	walls.push(
+		new Boundary(-sceneW + 150, -sceneH + 350, -sceneW + 250, -sceneH + 350)
+	);
+	walls.push(
+		new Boundary(-sceneW + 150, -sceneH + 250, -sceneW + 250, -sceneH + 250)
+	);
 };
 
 const loop = () => {
@@ -70,35 +85,57 @@ const loop = () => {
 	for (let i = 0; i < walls.length; i++) {
 		walls[i].show(ctx);
 	}
-	const distProjPlane = sceneW / 2 / tan(particle.fov / 2);
+	const distProjPlane = sceneW / 2 / tan(particle.fov / 2);
 	const scene = particle.look(ctx, walls);
 	const w = width / scene.length;
 
 	for (let i = 0; i < scene.length; i++) {
-		const sq = scene[i] * scene[i];	
+		const sq = scene[i] * scene[i];
 		const wSq = sceneW * sceneW;
-    const r = map(sq, 0, wSq, 139, 119);
-		const g = map(sq, 0, wSq, 69, 49);
-		const b = map(sq, 0, wSq, 19, 9);
+		const r = map(sq, 0, wSq, 139, 99);
+		const g = map(sq, 0, wSq, 69, 29);
+		const b = map(sq, 0, wSq, 19, 0);
 		//const h = map(scene[i], 0, sceneW, sceneH, 0);
-    let h = (((sceneW / scene[i]) * distProjPlane) / 4) / 2;
-    if (h > sceneH) {
+		let h = ((sceneW / scene[i]) * distProjPlane) / 4 / 2;
+		if (h > sceneH) {
 			h = sceneH;
 		}
 		// rect mode = center
-		ctx.fillStyle = 'rgba(' + r + ', ' + g + ', ' + b + ', 1)';
-		ctx.fillRect(-sceneW + i * w, sceneH / 2, w+1, -h/2);
-		ctx.fillRect(-sceneW + i * w, sceneH / 2 - 1, w+1, h/2);
-	  //ctx.fillRect(-sceneW + i * w, sceneH, w + 1, -h);
+		ctx.fillStyle = "rgba(" + r + ", " + g + ", " + b + ", 1)";
+		ctx.fillRect(-sceneW + i * w, sceneH / 2, w + 1, -h / 2);
+		ctx.fillRect(-sceneW + i * w, sceneH / 2 - 1, w + 1, h / 2);
+		//ctx.fillRect(-sceneW + i * w, sceneH, w + 1, -h);
 	}
-	
+
 	requestAnimationFrame(loop);
 };
+
+const s = 5;
+
+window.addEventListener("keydown", e => {
+	// w key
+	if (e.keyCode === 87) {
+		particle.goForward(s);
+	}
+	// s key
+	if (e.keyCode === 83) {
+		particle.goBackward(s);
+	}
+	// a key
+	if (e.keyCode === 65) {
+		particle.rotate(-s);
+	}
+	// d key
+	if (e.keyCode === 68) {
+		particle.rotate(s);
+	}
+});
+
 
 const rotateL = document.createElement("button");
 rotateL.innerHTML = "Rotate Left";
 rotateL.addEventListener("click", () => {
- 	particle.rotate(-10);
+	particle.rotate(-10);
 });
 rotateL.style.position = "absolute";
 rotateL.style.bottom = "80px";
@@ -112,7 +149,7 @@ document.body.appendChild(rotateL);
 const rotateR = document.createElement("button");
 rotateR.innerHTML = "Rotate Right";
 rotateR.addEventListener("click", () => {
-	 	particle.rotate(10);
+	particle.rotate(10);
 });
 rotateR.style.position = "absolute";
 rotateR.style.bottom = "80px";
@@ -136,6 +173,21 @@ goForward.style.backgroundColor = "#333";
 goForward.style.color = "#fff";
 goForward.style.border = "none";
 document.body.appendChild(goForward);
+
+const goBackward = document.createElement("button");
+goBackward.innerHTML = "Go Backward";
+goBackward.addEventListener("click", () => {
+	particle.goBackward(10);
+});
+goBackward.style.position = "absolute";
+goBackward.style.bottom = "10px";
+goBackward.style.right = "10px";
+goBackward.style.padding = "20px";
+goBackward.style.backgroundColor = "#333";
+goBackward.style.color = "#fff";
+goBackward.style.border = "none";
+document.body.appendChild(goBackward);
+
 
 const left = document.createElement("button");
 left.innerHTML = "Left";
